@@ -1,64 +1,112 @@
-import React, {Component} from 'react';
-import List from './components/List';
+import React, {useState} from 'react';
+// import List from './components/List';
 import './App.css';
 
-class App extends Component {
+const App = () => {
 
-  state = {
-    names: [],
-    numbers: [],
-    name: "",
-    number: ""
-  }
+const [name, setName] = useState("");
+const [number, setNumber] = useState("");
+const [info, setInfo] = useState(
+  [
+    {
+      name: "",
+      number: ""
+    }
+  ]
+)
 
-addName = (event) => {
-  this.setState({
-    name: event.target.value
-  })
+const handleNameInfo = (event) => {
+  let newName = event.target.value
+  setName(newName)
 }
 
-addNumber = (event) => {
-  this.setState({
-    number: event.target.value
-  })
+const handleNumberInfo = (event) => {
+  let newNumber = event.target.value
+  setNumber(newNumber)
 }
 
-addContact = () => {
-  this.setState({
-    names: [...this.state.names, this.state.name],
-    numbers: [...this.state.numbers, this.state.number]
-  })
-  this.setState({
-    name: "",
-    number: ""
-  })
+const handleAddInfo = () => {
+  let contactList = [...info];
+  contactList.push({name: name, number: number})
+  setInfo(contactList);
+  setName("")
+  setNumber("")
 }
 
-render(){
-  return (
-    <div className="App">
-        <input className="input" type="text" placeholder="Enter Name" value={this.state.name} onChange={this.addName}/>
-        <input className="input" type="text" placeholder="Enter Phone Number" value={this.state.number} onChange={this.addNumber}/>
-        <button onClick={this.addContact} type="submit">Add Contact</button>
-        <br/>
-        <ul>
-          {this.state.names.map((name, index) => {
-            return(
-              <li key ={index}>
-                {name}
-              </li>)})}
-          {this.state.numbers.map((number, index) => {
-            return(
-              <li key={index}>
-                {number}
-              </li>)})}
-        </ul>
-    </div>
-    )
-  }
+
+return(
+  <div className = "App">
+    <input className="input" type="text" placeholder="Enter Name" value={name} onChange={handleNameInfo}/>
+    <input className="input" type="text" placeholder="Enter Phone Number" value={number} onChange={handleNumberInfo}/>
+    <button onClick={handleAddInfo}>Add Contact</button>
+    <ul className="output">
+      {info.map((contact) => {
+        return <li><span className="nameOutput">{contact.name}</span> <span className="numberOutput">{contact.number}</span></li>
+      })}
+    </ul>
+  </div>
+  )
 }
 
 export default App;
+
+
+// class App extends Component {
+
+//   state = {
+//     names: [],
+//     numbers: [],
+//     name: "",
+//     number: ""
+//   }
+
+// addName = (event) => {
+//   this.setState({
+//     name: event.target.value
+//   })
+// }
+
+// addNumber = (event) => {
+//   this.setState({
+//     number: event.target.value
+//   })
+// }
+
+// addContact = () => {
+//   this.setState({
+//     names: [...this.state.names, this.state.name],
+//     numbers: [...this.state.numbers, this.state.number]
+//   })
+//   this.setState({
+//     name: "",
+//     number: ""
+//   })
+// }
+
+// render(){
+//   return (
+//     <div className="App">
+//         <input className="input" type="text" placeholder="Enter Name" value={this.state.name} onChange={this.addName}/>
+//         <input className="input" type="text" placeholder="Enter Phone Number" value={this.state.number} onChange={this.addNumber}/>
+//         <button onClick={this.addContact} type="submit">Add Contact</button>
+//         <br/>
+//         <ul>
+//           {this.state.names.map((name, index) => {
+//             return(
+//               <li key ={index}>
+//                 {name}
+//               </li>)})}
+//           {this. state.numbers.map((number, index) => {
+//             return(
+//               <li key={index}>
+//                 {number}
+//               </li>)})}
+//         </ul>
+//     </div>
+//     )
+//   }
+// }
+
 
 // class App extends Component {
 //   constructor(props){
