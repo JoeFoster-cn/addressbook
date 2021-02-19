@@ -3,10 +3,11 @@ import './List.css'
 
 function List(props){
   return(
-    <ul>
-      {props.name}
-      {props.number}
-    </ul>
+    <div className="List">
+      <ul>
+        {props.name} {props.number}
+      </ul>
+    </div>
   )
 }
 
